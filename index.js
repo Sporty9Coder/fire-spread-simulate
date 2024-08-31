@@ -19,22 +19,42 @@ window.addEventListener('DOMContentLoaded', () => {
      loadingSpinner.style.display = 'block';
 
     // Fetch the JSON file and load the 2D arrays into arrayCollection
-    var url = '';
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
+    async function fetchArray() {
+
+        const body = JSON.stringify( {
+            "ignite_cell": [25,25],
+            "shape": [5,5],
+            "steps":5
+        })
+
+        var url = 'https://b70a-104-28-222-179.ngrok-free.app/simulate';
+        try {
+            const response = await fetch(url, {
+                method: 'POST', // Specify the request method
+                headers: {
+                    'Content-Type': 'application/json' // Specify the content type as JSON
+                },
+                body    
+            })
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+    
+            const data = await response.json();
             console.log(data);
             arrayCollection = data; // Assuming data is an array of 2D arrays
-             // Hide the loading indicator once data is received
+            // Hide the loading indicator once data is received
+            loadingIndicator.style.display = 'none';
+            loadingSpinner.style.display = 'none';   
+        } catch (error) {
+            console.log(error);
             loadingIndicator.style.display = 'none';
             loadingSpinner.style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Error loading JSON:', error);
-            // Hide the loading indicator if an error occurs
-            loadingIndicator.style.display = 'none';
-            loadingSpinner.style.display = 'none';
-        });
+        }
+    }
+
+    fetchArray();
 });
 
 gridOverlay.addEventListener('click', (e) => {
