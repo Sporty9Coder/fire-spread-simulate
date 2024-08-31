@@ -58,11 +58,11 @@ function updateGrid(array2D) {
             const cell = document.querySelector(`.grid-cell[data-index="${index}"]`);
             const currentColor = cell.style.backgroundColor;
 
-            if (value === 1 && currentColor !== 'red') {
-                cell.style.backgroundColor = 'red';
-            } else if (value === 2 && currentColor !== 'red') {
-                cell.style.backgroundColor = 'yellow';
-            } else if (value === 0 && (currentColor !== 'red' && currentColor !== 'yellow')) {
+            if (value === 1 && currentColor !== '#880808') {
+                cell.style.backgroundColor = '#880808';
+            } else if (value === 2 && currentColor !== '#880808') {
+                cell.style.backgroundColor = '#FFAA33';
+            } else if (value === 0 && (currentColor !== '#880808' && currentColor !== '#FFAA33')) {
                 cell.style.backgroundColor = 'transparent';
             }
         });
