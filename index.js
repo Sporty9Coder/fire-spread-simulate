@@ -1,4 +1,5 @@
 const gridOverlay = document.getElementById('grid-overlay');
+const loadingIndicator = document.getElementById('loading-indicator');
 let arrayCollection = []; // To store the array of 2D arrays from the JSON file
 let currentArrayIndex = 0; // To track which array to use next
 let intervalId = null; // To keep track of the interval
@@ -12,14 +13,24 @@ window.addEventListener('DOMContentLoaded', () => {
         gridOverlay.appendChild(cell);
     }
 
+     // Show the loading indicator
+     loadingIndicator.style.display = 'block';
+
     // Fetch the JSON file and load the 2D arrays into arrayCollection
-    fetch('./simualate.json')
+    var url = '';
+    fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log(data);
             arrayCollection = data; // Assuming data is an array of 2D arrays
+             // Hide the loading indicator once data is received
+            loadingIndicator.style.display = 'none';
         })
-        .catch(error => console.error('Error loading JSON:', error));
+        .catch(error => {
+            console.error('Error loading JSON:', error);
+            // Hide the loading indicator if an error occurs
+            loadingIndicator.style.display = 'none';
+        });
 });
 
 gridOverlay.addEventListener('click', (e) => {
