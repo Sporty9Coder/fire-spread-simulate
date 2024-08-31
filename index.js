@@ -1,5 +1,6 @@
 const gridOverlay = document.getElementById('grid-overlay');
-const loadingIndicator = document.getElementById('loading-indicator');
+const loadingIndicator = document.getElementById('loading');
+const loadingSpinner = document.getElementById('spinner');
 let arrayCollection = []; // To store the array of 2D arrays from the JSON file
 let currentArrayIndex = 0; // To track which array to use next
 let intervalId = null; // To keep track of the interval
@@ -15,6 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
      // Show the loading indicator
      loadingIndicator.style.display = 'block';
+     loadingSpinner.style.display = 'block';
 
     // Fetch the JSON file and load the 2D arrays into arrayCollection
     var url = '';
@@ -25,11 +27,13 @@ window.addEventListener('DOMContentLoaded', () => {
             arrayCollection = data; // Assuming data is an array of 2D arrays
              // Hide the loading indicator once data is received
             loadingIndicator.style.display = 'none';
+            loadingSpinner.style.display = 'none';
         })
         .catch(error => {
             console.error('Error loading JSON:', error);
             // Hide the loading indicator if an error occurs
             loadingIndicator.style.display = 'none';
+            loadingSpinner.style.display = 'none';
         });
 });
 
